@@ -16,8 +16,8 @@ public class Main {
         PrintStream out = System.out;
         Scanner in = new Scanner(System.in);
         out.println("Hi, input text file with http:");
-        String fname = "E:\\GIvNo\\Project\\HTTP_DOuN\\http.txt";
-        out.println("E:\\GIvNo\\Project\\HTTP_DOuN\\http.txt");
+        String fname = "E:\\http.txt";
+        out.println("E:\\http.txt");
         File httpFile = new File(fname);
         if(!httpFile.canRead()) {
             out.println("error, the file cannot be read");
@@ -29,7 +29,7 @@ public class Main {
         }
         out.println("File is ok");
 
-        ArrayList<String> listHttp = null;
+        ArrayList<String> listHttp;
         try {
             listHttp = fileWork(httpFile);
         } catch (FileNotFoundException e) {
@@ -39,16 +39,15 @@ public class Main {
 
         out.println("Get " + listHttp.size()+" link");
         out.println("Input path to download dir: ");
-        String outDir = "E:\\GIvNo\\Project\\HTTP_DOuN\\downloadTest";out.println("E:\\GIvNo\\Project\\HTTP_DOuN\\downloadTest");//in.nextLine();
+        String outDir = "E:downloadTest";out.println("E:\\downloadTest");//in.nextLine();
         out.println("Input max speed (Kb/s): ");
         int maxSpeed = in.nextInt();
-        for(var h :listHttp){
+        for(var h : listHttp){
             //String fileEnd = h.substring(h.lastIndexOf("."));
             String fileName = h.substring(h.lastIndexOf("/"));
             DownloadThread dt = new DownloadThread(h,outDir+fileName, maxSpeed);
             dt.start();
         }
-
     }
     private static ArrayList<String> fileWork(@NotNull File file) throws FileNotFoundException {
         ArrayList<String> listHttp = new ArrayList<>();

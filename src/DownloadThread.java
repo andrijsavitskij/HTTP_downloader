@@ -1,11 +1,8 @@
 import java.io.BufferedInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.net.URL;
-import java.util.Random;
 
 public class DownloadThread extends Thread{
-    // потрібно?
     private final String urlStr;
     private final String file;
     private long time;
@@ -41,8 +38,10 @@ public class DownloadThread extends Thread{
 
             fis.close();
             bis.close();
-        }catch (IOException | InterruptedException e) {
-            throw new RuntimeException(e);
+        }catch (Exception e) {
+//            throw new RuntimeException(e);
+            System.out.println(Thread.currentThread().getName() + "....ERROR!!!!");
+            System.out.println(e);
         }
 
         System.out.println(Thread.currentThread().getName() + "....finished");
