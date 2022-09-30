@@ -9,14 +9,14 @@ public class DownloadThread extends Thread{
     private final int maxSpeedInKbPerSec;
 
     DownloadThread(String urlStr, String file, int maxSpeedInKbPerSec){
-        super("DownloadTread_"+ file.substring(file.lastIndexOf("/")+1));
+        super("DownloadTread_"+ file.substring(file.lastIndexOf("/")+1));//    для зручності тестування 
         this.urlStr = urlStr;
         this.file = file;
         this.maxSpeedInKbPerSec = maxSpeedInKbPerSec;
     }
 
     public void run(){
-        System.out.println(Thread.currentThread().getName() + "....started");
+        System.out.println(Thread.currentThread().getName() + "....started");//    для зручності тестування
 
         try {
             URL url = new URL(urlStr);
@@ -40,7 +40,7 @@ public class DownloadThread extends Thread{
             bis.close();
         }catch (Exception e) {
 //            throw new RuntimeException(e);
-            System.out.println(Thread.currentThread().getName() + "....ERROR!!!!");
+            System.out.println(Thread.currentThread().getName() + "....ERROR!!!!");//    для зручності тестування
             System.out.println(e);
         }
 
@@ -49,6 +49,6 @@ public class DownloadThread extends Thread{
     private boolean isSecNotPass(){
         long t = time+(long)1000;
         time = System.currentTimeMillis();
-        return System.currentTimeMillis() <= t;
+        return time <= t;
     }
 }
