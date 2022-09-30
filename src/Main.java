@@ -16,7 +16,7 @@ public class Main {
         PrintStream out = System.out;
         Scanner in = new Scanner(System.in);
         out.println("Hi, input text file with http:");
-        String fname = "E:\\http.txt";
+        String fname = "E:\\http.txt";//    для зручності 
         out.println("E:\\http.txt");
         File httpFile = new File(fname);
         if(!httpFile.canRead()) {
@@ -39,8 +39,8 @@ public class Main {
 
         out.println("Get " + listHttp.size()+" link");
         out.println("Input path to download dir: ");
-        String outDir = "E:downloadTest";out.println("E:\\downloadTest");//in.nextLine();
-        out.println("Input max speed (Kb/s): ");
+        String outDir = "E:downloadTest";out.println("E:\\downloadTest");//in.nextLine();//    для зручності 
+        out.println("Input max speed (Kb/s): "); 
         int maxSpeed = in.nextInt();
         for(var h : listHttp){
             //String fileEnd = h.substring(h.lastIndexOf("."));
