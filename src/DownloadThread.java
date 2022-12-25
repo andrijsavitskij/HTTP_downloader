@@ -9,12 +9,13 @@ public class DownloadThread extends Thread{
     private final int maxSpeedInKbPerSec;
 
     DownloadThread(String urlStr, String file, int maxSpeedInKbPerSec){
-        super("DownloadTread_"+ file.substring(file.lastIndexOf("/")+1));//    для зручності тестування 
+        super("DownloadTread_"+ file.substring(file.lastIndexOf("/")+1));//    для зручності тестування
         this.urlStr = urlStr;
         this.file = file;
         this.maxSpeedInKbPerSec = maxSpeedInKbPerSec;
     }
 
+    // обмеження швидкості працює як таймер, якщо поки скачувалось 1024 байти (1KB) пройшла секунда, ми чекаємо, якщо неппройшла то не чекаємо))
     public void run(){
         System.out.println(Thread.currentThread().getName() + "....started");//    для зручності тестування
 
@@ -39,7 +40,6 @@ public class DownloadThread extends Thread{
             fis.close();
             bis.close();
         }catch (Exception e) {
-//            throw new RuntimeException(e);
             System.out.println(Thread.currentThread().getName() + "....ERROR!!!!");//    для зручності тестування
             System.out.println(e);
         }
@@ -47,8 +47,6 @@ public class DownloadThread extends Thread{
         System.out.println(Thread.currentThread().getName() + "....finished");
     }
     private boolean isSecNotPass(){
-        long t = time+(long)1000;
-        time = System.currentTimeMillis();
-        return time <= t;
+        return System.currentTimeMillis() <= time+1000L;
     }
 }

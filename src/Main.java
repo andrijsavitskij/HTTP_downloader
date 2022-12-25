@@ -12,12 +12,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         PrintStream out = System.out;
         Scanner in = new Scanner(System.in);
-        out.println("Hi, input text file with http:");
-        String fname = "E:\\http.txt";//    для зручності 
-        out.println("E:\\http.txt");
+
+        // Start
+        out.println("Hi, input text file with http: ");
+        String fname = "http.txt";// i can - i do
+        out.println("http.txt");
+
+        // file is good?
         File httpFile = new File(fname);
         if(!httpFile.canRead()) {
             out.println("error, the file cannot be read");
@@ -29,27 +33,28 @@ public class Main {
         }
         out.println("File is ok");
 
+        // get http links
         ArrayList<String> listHttp;
-        try {
-            listHttp = fileWork(httpFile);
-        } catch (FileNotFoundException e) {
-            out.println("ERROR: File not found");
-            return;
-        }
+        listHttp = fileWork(httpFile);
 
         out.println("Get " + listHttp.size()+" link");
         out.println("Input path to download dir: ");
-        String outDir = "E:downloadTest";out.println("E:\\downloadTest");//in.nextLine();//    для зручності 
-        out.println("Input max speed (Kb/s): "); 
+        String outDir = "E:downloadTest";out.println("E:\\downloadTest");//in.nextLine();// i can - i do
+        out.println("Input max speed (Kb/s): "); // set speed limit
         int maxSpeed = in.nextInt();
         for(var h : listHttp){
-            //String fileEnd = h.substring(h.lastIndexOf("."));
             String fileName = h.substring(h.lastIndexOf("/"));
             DownloadThread dt = new DownloadThread(h,outDir+fileName, maxSpeed);
             dt.start();
         }
     }
-    private static ArrayList<String> fileWork(@NotNull File file) throws FileNotFoundException {
+
+    /**
+     * виймає з файлу посилання
+     * @return лист з корректних ссилок для скачування
+     * @throws FileNotFoundException
+     */
+    private static @NotNull ArrayList<String> fileWork(@NotNull File file) throws FileNotFoundException {
         ArrayList<String> listHttp = new ArrayList<>();
         Scanner f = new Scanner(file);
         while (f.hasNextLine()) {
@@ -60,6 +65,7 @@ public class Main {
         }
         return listHttp;
     }
+
 
 //    private static void downloadUsingNIO(String urlStr, String file) throws IOException {
 //        URL url = new URL(urlStr);
